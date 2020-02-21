@@ -11,16 +11,10 @@ public class Pawn : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void Move(Vector2 direction)
     {
-
-    }
-
-
-    private void Move(Vector2 direction)
-    {
-        anim.SetFloat("Horizontal", direction.x);
-        anim.SetFloat("Vertical", direction.y);
+        anim.SetFloat("Horizontal", direction.x * speed);
+        anim.SetFloat("Vertical", direction.y * speed);
     }
 }
