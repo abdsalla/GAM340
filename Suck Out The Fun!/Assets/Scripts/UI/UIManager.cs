@@ -6,24 +6,51 @@ using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
-    public Health playerHealthComponent;
+    private GameManager instance;
+    [SerializeField] private GameObject player;
 
-    [Header("UI Elements")]
-    public Image healthBar;
+    public Energy playerEnergy;
+    public float actionCost = .02f;
 
-    private void Start()
+    void Awake()
     {
-        playerHealthComponent.OnHealthChange.AddListener(UpdateHealthUI);
+        instance = GameManager.Instance;
     }
 
-    public void UpdateHealthUI (float newhealthvalue)
+    void Update()
     {
-        Debug.Log("Health has been changed to " + newhealthvalue);
-        healthBar.fillAmount = newhealthvalue;
+        if (!playerEnergy)
+        {
+            CheckNSet();
+        }
     }
 
-    public float CalculateHealth()
+    public void UpdateHealth (float enValue)
     {
-        return playerHealthComponent.CurrentHealth / playerHealthComponent.maxHealth;
+        Debug.Log("Health has been changed to " + enValue);
+        playerEnergy.health.fillAmount = enValue;
+    }
+
+    public void UpdateStamina (float enValue)
+    {
+        playerEnergy.stamina.fillAmount = enValue;
+       // Debug.Log("Stamina is at: " + playerEnergy.stamina.fillAmount);
+    }
+
+    public void CheckNSet()
+    {
+        player = GameObject.FindWithTag("Player");
+
+        if (!player) Debug.Log("Player missing");
+        else if (player) playerEnergy = player.GetComponent<Energy>(); // Energy Set
+
+        playerEnergy.OnHealthChange.AddListener(UpdateHealth);
+        playerEnergy.OnStaminaChange.AddListener(UpdateStamina);
+    }
+
+    public bool ActionReady()
+    {
+        if (playerEnergy.stamina.fillAmount >= actionCost) return true;
+        else return false;
     }
 }
