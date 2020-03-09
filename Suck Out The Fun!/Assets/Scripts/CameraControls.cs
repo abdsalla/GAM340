@@ -10,7 +10,7 @@ public class CameraControls : MonoBehaviour
 
     private GameManager instance;
 
-    [SerializeField] private Vector3 offset; //
+    [SerializeField] private Vector3 offset; 
     [SerializeField] private GameObject target;  // Player's position
     [SerializeField] private Camera theCamera;  // Player's camera
 

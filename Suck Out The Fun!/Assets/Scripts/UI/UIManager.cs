@@ -25,30 +25,30 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateHealth (float enValue)
+    public void UpdateHealth (float enValue) // Make Health visual match the healthbar value
     {
         Debug.Log("Health has been changed to " + enValue);
         playerEnergy.health.fillAmount = enValue;
     }
 
-    public void UpdateStamina (float enValue)
+    public void UpdateStamina (float enValue) // Make Stamina visual match the staminabar value
     {
         playerEnergy.stamina.fillAmount = enValue;
        // Debug.Log("Stamina is at: " + playerEnergy.stamina.fillAmount);
     }
 
-    public void CheckNSet()
+    public void CheckNSet() 
     {
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player"); // Find PLayer
 
         if (!player) Debug.Log("Player missing");
-        else if (player) playerEnergy = player.GetComponent<Energy>(); // Energy Set
-
+        else if (player) playerEnergy = player.GetComponent<Energy>(); // Grab Energy
+        // Setup events
         playerEnergy.OnHealthChange.AddListener(UpdateHealth);
         playerEnergy.OnStaminaChange.AddListener(UpdateStamina);
     }
 
-    public bool ActionReady()
+    public bool ActionReady() // checks to see if player has enough stamina to sprint
     {
         if (playerEnergy.stamina.fillAmount >= actionCost) return true;
         else return false;
