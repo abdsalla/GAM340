@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         PlayerSpawn();
-        UI.CheckNSet();
     }
 
     void PlayerSpawn() // Spawns Player at the given spawn point if there is no active Player in the scene

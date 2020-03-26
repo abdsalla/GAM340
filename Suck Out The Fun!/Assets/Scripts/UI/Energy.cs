@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Collections;
+using System.Collections.Generic;
 
 public class UnityFloatEvent : UnityEvent<float> { }
 
@@ -21,9 +21,10 @@ public class Energy : MonoBehaviour
     public Image health;
     public Image stamina;
 
-    // UI Event for health and stamina
+    // UI Event for health, stamina and death
     public UnityFloatEvent OnHealthChange = new UnityFloatEvent();
     public UnityFloatEvent OnStaminaChange = new UnityFloatEvent();
+    public UnityEvent OnDeath = new UnityEvent();
 
     void Start()
     {
@@ -38,9 +39,9 @@ public class Energy : MonoBehaviour
         {
             _currentHealth = value;
             OnHealthChange.Invoke(_currentHealth);
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
+            if (_currentHealth <= 0) OnDeath.Invoke();
         }
-
-        //if (currentHealth == 0) gameObject.SetActive(false);       
     }
 
     public float CurrentStamina
@@ -50,8 +51,9 @@ public class Energy : MonoBehaviour
         {
             _currentStamina = value;
             OnStaminaChange.Invoke(_currentStamina);
-        }
-
-        //if (currentHealth == 0) gameObject.SetActive(false);       
+            _currentStamina = Mathf.Clamp(_currentStamina, 0, maxStamina);
+        }  
     }
+
+    public void DestroySelf() { Destroy(gameObject, 1.0f); }
 }

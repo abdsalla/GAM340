@@ -7,50 +7,71 @@ using System.Collections.Generic;
 public class UIManager : MonoBehaviour
 {
     private GameManager instance;
-    [SerializeField] private GameObject player;
 
-    public Energy playerEnergy;
     public float actionCost = .02f;
 
-    void Awake()
-    {
-        instance = GameManager.Instance;
-    }
 
-    void Update()
+    void Awake() { instance = GameManager.Instance; }
+
+    public void RecieveDamage (Energy enToAffect, float damageValue, bool isPlayer) // Make Health visual match the healthbar value
     {
-        if (!playerEnergy)
+        if (isPlayer)
         {
-            CheckNSet();
+            enToAffect.CurrentHealth -= damageValue;
+            enToAffect.health.fillAmount -= damageValue;
         }
+        else if (!isPlayer) enToAffect.CurrentHealth -= damageValue;
     }
 
-    public void UpdateHealth (float enValue) // Make Health visual match the healthbar value
+    public void HealDamage (Energy enToAffect, float healValue, bool isPlayer)
     {
-        Debug.Log("Health has been changed to " + enValue);
-        playerEnergy.health.fillAmount = enValue;
+        if (isPlayer)
+        {
+            enToAffect.CurrentHealth += healValue;
+            enToAffect.health.fillAmount += healValue;
+        }
+        else if (!isPlayer) enToAffect.CurrentHealth += healValue;
     }
 
-    public void UpdateStamina (float enValue) // Make Stamina visual match the staminabar value
+    public void UseStamina (Energy enToAffect, float actionStamCost, bool isPlayer) // Make Stamina visual match the staminabar value
     {
-        playerEnergy.stamina.fillAmount = enValue;
-       // Debug.Log("Stamina is at: " + playerEnergy.stamina.fillAmount);
+        if (isPlayer)
+        {
+            enToAffect.CurrentStamina -= actionStamCost;
+            enToAffect.stamina.fillAmount -= actionStamCost;
+        }
+        else if (!isPlayer) enToAffect.CurrentStamina -= actionStamCost;
     }
 
-    public void CheckNSet() 
+    public void RegenStamina (Energy enToAffect, float regenValue, bool isPlayer)
     {
-        player = GameObject.FindWithTag("Player"); // Find PLayer
-
-        if (!player) Debug.Log("Player missing");
-        else if (player) playerEnergy = player.GetComponent<Energy>(); // Grab Energy
-        // Setup events
-        playerEnergy.OnHealthChange.AddListener(UpdateHealth);
-        playerEnergy.OnStaminaChange.AddListener(UpdateStamina);
+        if (isPlayer)
+        {
+            enToAffect.CurrentStamina += regenValue;
+            enToAffect.stamina.fillAmount += regenValue;
+        }
+        else if (!isPlayer) enToAffect.CurrentStamina += regenValue;
     }
 
-    public bool ActionReady() // checks to see if player has enough stamina to sprint
+    /* void SetPlayerListeners()
+     {
+         playerEnergy.OnHealthChange.AddListener(UpdateHealth);
+         playerEnergy.OnStaminaChange.AddListener(UpdateStamina);
+     } */
+
+    /* void SetAIListeners()
+     {
+         unitEnergy.OnHealthChange.AddListener(UpdateHealth);
+         unitEnergy.OnStaminaChange.AddListener(UpdateStamina);
+     } */
+
+    public bool ActionReady(Energy stamAmount) // checks to see if player has enough stamina to sprint
     {
-        if (playerEnergy.stamina.fillAmount >= actionCost) return true;
-        else return false;
+        if (stamAmount == null) return false;
+        else
+        {
+            if (stamAmount.stamina.fillAmount >= actionCost) return true;
+            else return false; // cannot Sprint
+        }  
     }
 }
