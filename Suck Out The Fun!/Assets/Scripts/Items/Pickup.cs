@@ -8,7 +8,6 @@ public abstract class Pickup : MonoBehaviour
 {
     [SerializeField] Vector3 spinRotation;
     protected Pawn receiverPawn;
-    protected GameObject receiver;
 
     public virtual void Start() { }
 
@@ -20,7 +19,6 @@ public abstract class Pickup : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        receiver = other.gameObject;
         receiverPawn = other.gameObject.GetComponent<Pawn>();
         OnPickup(other.gameObject);
     }
