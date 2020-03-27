@@ -10,8 +10,6 @@ public class Consummable : Item
 
     public Energy toHeal;
 
-    //public PlayerController shooter; // Multiplayer revamp
-
     void Awake()
     {
         instance = GameManager.Instance;

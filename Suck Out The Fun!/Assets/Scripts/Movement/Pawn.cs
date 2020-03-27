@@ -58,13 +58,13 @@ public class Pawn : MonoBehaviour
         }
     }
 
-    public void UseConsummable(Consummable item)
+    public void UseConsummable(Consummable item) // Set Listeners for item
     {
         OnUse.AddListener(item.OnUse);
         OnExit.AddListener(item.OnExit);
     }
 
-    public void ConsummableEffect(Consummable item)
+    public void ConsummableEffect(Consummable item) // Remove Item Listeners to avoid unused listeners
     {
         OnUse.RemoveListener(item.OnUse);
         OnExit.RemoveListener(item.OnExit);
@@ -108,5 +108,9 @@ public class Pawn : MonoBehaviour
         }
     }
 
-    //void OnAnimatorMove() { if (agent != null) agent.velocity = anim.velocity; }
+    void OnAnimatorMove()
+    {
+        if (agent != null) ;// agent.velocity = anim.velocity;
+        else if (agent == null) anim.ApplyBuiltinRootMotion();
+    }
 }

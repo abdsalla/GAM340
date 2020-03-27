@@ -8,6 +8,8 @@ public class UnityFloatEvent : UnityEvent<float> { }
 
 public class Energy : MonoBehaviour
 {
+    private GameManager instance;
+
     [Header("Energy Stats")]
     public float regenRate;
 
@@ -26,12 +28,22 @@ public class Energy : MonoBehaviour
     public UnityFloatEvent OnStaminaChange = new UnityFloatEvent();
     public UnityEvent OnDeath = new UnityEvent();
 
+    void Awake()
+    {
+        instance = GameManager.Instance;
+    }
+
     void Start()
     {
         //_currentHealth = maxHealth;
         _currentHealth = 20;
         CalculateHealth();
         _currentStamina = maxStamina;
+    }
+
+    private void Update()
+    {
+        Debug.Log("player health: " + _currentHealth);
     }
 
     public float CurrentHealth
@@ -58,15 +70,32 @@ public class Energy : MonoBehaviour
         }  
     }
 
-    public void CalculateHealth()
+    public void CalculateHealth() // Determines health color range off of unit's health percentage
     {
-        float healthPercent;
-        healthPercent = (100f / maxHealth) * _currentHealth;
+        float healthPercent = (100f / maxHealth) * _currentHealth;
         
         if (healthPercent <= 30f) { health.color = Color.red; }
         else if (healthPercent <= 70f && healthPercent > 30f) { health.color = new Color(255, 165, 0); }
         else if (healthPercent > 70f) { health.color = Color.green; }
     }
 
-    public void DestroySelf() { Destroy(gameObject, 1.0f); }
+    public void DestroySelf()
+    {
+        Pawn unitCheck = GetComponent<Pawn>();
+
+        if (unitCheck != null)
+        {
+            if (unitCheck.agent == null)
+            {
+                instance.lives -= 1;
+                instance.PlayerSpawn();
+                Destroy(gameObject, 1.0f);
+            }
+            else if (unitCheck.agent != null)
+            {
+                instance.EnemyRespawn();
+                Destroy(gameObject, 2.0f);
+            }
+        }
+    }
 }
