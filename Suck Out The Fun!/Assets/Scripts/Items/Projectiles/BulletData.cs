@@ -30,7 +30,11 @@ public class BulletData : MonoBehaviour
         if (otherEnergy != null)
         {
             if (playerCheck != null) { actionTracker.RecieveDamage(otherEnergy, damageDone, true); }
-            else actionTracker.RecieveDamage(otherEnergy, damageDone, false);
+            else
+            {
+                actionTracker.RecieveDamage(otherEnergy, damageDone, false);
+                Debug.Log("Collided with Enemy");
+            }
         }
         Destroy(gameObject);
     }

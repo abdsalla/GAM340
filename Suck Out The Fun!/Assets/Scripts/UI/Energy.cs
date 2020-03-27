@@ -28,7 +28,9 @@ public class Energy : MonoBehaviour
 
     void Start()
     {
-        _currentHealth = maxHealth;
+        //_currentHealth = maxHealth;
+        _currentHealth = 20;
+        CalculateHealth();
         _currentStamina = maxStamina;
     }
 
@@ -40,6 +42,7 @@ public class Energy : MonoBehaviour
             _currentHealth = value;
             OnHealthChange.Invoke(_currentHealth);
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
+            CalculateHealth();
             if (_currentHealth <= 0) OnDeath.Invoke();
         }
     }
@@ -53,6 +56,16 @@ public class Energy : MonoBehaviour
             OnStaminaChange.Invoke(_currentStamina);
             _currentStamina = Mathf.Clamp(_currentStamina, 0, maxStamina);
         }  
+    }
+
+    public void CalculateHealth()
+    {
+        float healthPercent;
+        healthPercent = (100f / maxHealth) * _currentHealth;
+        
+        if (healthPercent <= 30f) { health.color = Color.red; }
+        else if (healthPercent <= 70f && healthPercent > 30f) { health.color = new Color(255, 165, 0); }
+        else if (healthPercent > 70f) { health.color = Color.green; }
     }
 
     public void DestroySelf() { Destroy(gameObject, 1.0f); }

@@ -20,7 +20,11 @@ public class UIManager : MonoBehaviour
             enToAffect.CurrentHealth -= damageValue;
             enToAffect.health.fillAmount -= damageValue;
         }
-        else if (!isPlayer) enToAffect.CurrentHealth -= damageValue;
+        else if (!isPlayer)
+        {
+            enToAffect.CurrentHealth -= damageValue;
+            Debug.Log("Enemy Health: " + enToAffect.CurrentHealth);
+        }
     }
 
     public void HealDamage (Energy enToAffect, float healValue, bool isPlayer)
@@ -52,18 +56,6 @@ public class UIManager : MonoBehaviour
         }
         else if (!isPlayer) enToAffect.CurrentStamina += regenValue;
     }
-
-    /* void SetPlayerListeners()
-     {
-         playerEnergy.OnHealthChange.AddListener(UpdateHealth);
-         playerEnergy.OnStaminaChange.AddListener(UpdateStamina);
-     } */
-
-    /* void SetAIListeners()
-     {
-         unitEnergy.OnHealthChange.AddListener(UpdateHealth);
-         unitEnergy.OnStaminaChange.AddListener(UpdateStamina);
-     } */
 
     public bool ActionReady(Energy stamAmount) // checks to see if player has enough stamina to sprint
     {
