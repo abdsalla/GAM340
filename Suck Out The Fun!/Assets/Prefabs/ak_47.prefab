@@ -53,6 +53,7 @@ MonoBehaviour:
   maxAmount: 1
   RightHandPoint: {fileID: 7564583339283100893}
   LeftHandPoint: {fileID: 7564583337828626811}
+  shotRange: 2
   damageDone: 20
   ammoCount: 100
   prefabBullet: {fileID: 2649090730048668399, guid: 4a983a2af8f4d144a982a421b11b86e2,

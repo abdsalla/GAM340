@@ -13,7 +13,7 @@ public class HealthPickup : Pickup
 
         if (receiverPawn != null)
         {
-            if (receiverPawn.agent == null && enToAffect.CurrentHealth < enToAffect.maxHealth) // if the this pawn belongs to the player and the player isn't at full health
+            if (enToAffect.CurrentHealth < enToAffect.maxHealth) // if the unit isn't at full health
             {
                 receiverPawn.UseConsummable(healthPack); 
                 healthPack.OnUse();

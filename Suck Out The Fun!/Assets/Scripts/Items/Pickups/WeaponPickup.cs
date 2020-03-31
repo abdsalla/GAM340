@@ -8,7 +8,7 @@ public class WeaponPickup : Pickup
 
     public override void OnPickup(GameObject target)
     {
-        if (receiverPawn != null)
+        if (receiverPawn != null && receiverPawn.agent == null)
         {
             receiverPawn.EquipWeapon(weaponToGet);
             Destroy(gameObject);

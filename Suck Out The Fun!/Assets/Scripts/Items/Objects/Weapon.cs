@@ -6,6 +6,7 @@ public class Weapon : Item
 {
     public Transform RightHandPoint;
     public Transform LeftHandPoint;
+    public float shotRange;
     [SerializeField] protected float damageDone;
 
     public void Start() { type = ItemType.Weapon; }

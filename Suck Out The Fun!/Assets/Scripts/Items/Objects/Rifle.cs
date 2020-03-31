@@ -22,22 +22,22 @@ public class Rifle : Weapon
     {
         if (shotCooldown < fireRate) shotCooldown += Time.deltaTime;
 
-        if (isShooting && shotCooldown >= fireRate && ammoCount > 0)
-        {
-            ammoCount--;
-            ShootBullet();
-            shotCooldown = 0;
-        }
+        ShootBullet(); 
     }
 
     public void ShootBullet()
     {
-        GameObject bullet = Instantiate(prefabBullet, firePoint.position, firePoint.rotation) as GameObject;
-        BulletData bulletData = bullet.GetComponent<BulletData>();
-        if (bulletData != null)
+        if (isShooting && shotCooldown >= fireRate && ammoCount > 0)
         {
-            bulletData.damageDone = damageDone;
-            bulletData.travelSpeed = roundSpeed;
+            GameObject bullet = Instantiate(prefabBullet, firePoint.position, firePoint.rotation) as GameObject;
+            BulletData bulletData = bullet.GetComponent<BulletData>();
+            ammoCount--;
+            if (bulletData != null)
+            {
+                bulletData.damageDone = damageDone;
+                bulletData.travelSpeed = roundSpeed;
+            }
+            shotCooldown = 0;
         }
     }
 

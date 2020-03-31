@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 323879305783299293}
   - component: {fileID: 6775462026125103059}
   - component: {fileID: 6092575571825606747}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Stamina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 3117465062150279}
   - component: {fileID: 6672413253992236755}
   - component: {fileID: 2186880641270958242}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AIPawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,6 +382,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3117465062150279}
         m_MethodName: EnableRagdoll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7853635841673995482}
+        m_MethodName: DestroySelf
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -815,7 +826,7 @@ GameObject:
   - component: {fileID: 8467803742370523531}
   - component: {fileID: 4212026957820462878}
   - component: {fileID: 8664740365492938697}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1454,7 +1465,7 @@ GameObject:
   - component: {fileID: 6194511922294082888}
   - component: {fileID: 4915769533849509991}
   - component: {fileID: 5524972086999575815}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1789,7 +1800,7 @@ GameObject:
   - component: {fileID: 5838139428834121183}
   - component: {fileID: 2004145274659354406}
   - component: {fileID: 225431660540698160}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: StaminaBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

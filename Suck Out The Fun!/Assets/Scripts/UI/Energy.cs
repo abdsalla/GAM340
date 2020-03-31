@@ -35,15 +35,9 @@ public class Energy : MonoBehaviour
 
     void Start()
     {
-        //_currentHealth = maxHealth;
-        _currentHealth = 20;
+        _currentHealth = maxHealth;
         CalculateHealth();
         _currentStamina = maxStamina;
-    }
-
-    private void Update()
-    {
-        Debug.Log("player health: " + _currentHealth);
     }
 
     public float CurrentHealth
@@ -55,7 +49,10 @@ public class Energy : MonoBehaviour
             OnHealthChange.Invoke(_currentHealth);
             _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
             CalculateHealth();
-            if (_currentHealth <= 0) OnDeath.Invoke();
+            if (_currentHealth <= 0)
+            {
+                OnDeath.Invoke();
+            }
         }
     }
 
@@ -79,7 +76,7 @@ public class Energy : MonoBehaviour
         else if (healthPercent > 70f) { health.color = Color.green; }
     }
 
-    public void DestroySelf()
+    public void DestroySelf() // Handles death and increments/decrements of player counters
     {
         Pawn unitCheck = GetComponent<Pawn>();
 
@@ -88,13 +85,26 @@ public class Energy : MonoBehaviour
             if (unitCheck.agent == null)
             {
                 instance.lives -= 1;
-                instance.PlayerSpawn();
-                Destroy(gameObject, 1.0f);
+                instance.score -= 5;
+                Destroy(gameObject);
+                StartCoroutine(instance.PlayerRespawn());
+                StopCoroutine(instance.PlayerRespawn());
             }
             else if (unitCheck.agent != null)
             {
-                instance.EnemyRespawn();
+                instance.score += 10;
                 Destroy(gameObject, 2.0f);
+                for (int i = instance.activeEnemies; i >= instance.allowedEnemies; i--)
+                {
+                    Destroy(gameObject, 2.0f);
+                    instance.activeEnemies -= 1;
+                    if (instance.activeEnemies < instance.allowedEnemies)
+                    {
+                        instance.EnemyRespawn();
+                        instance.activeEnemies += 1;
+                    }
+                }
+                
             }
         }
     }

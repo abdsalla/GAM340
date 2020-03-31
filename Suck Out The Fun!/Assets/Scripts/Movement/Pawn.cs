@@ -21,6 +21,11 @@ public class Pawn : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    void Update()
+    {
+        
+    }
+
     public void Move(Vector3 direction) // Receives controller input
     {
         direction = transform.InverseTransformDirection(direction); // World to local for animator

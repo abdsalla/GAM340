@@ -29,11 +29,10 @@ public class BulletData : MonoBehaviour
         PlayerController playerCheck = other.GetComponent<PlayerController>();
         if (otherEnergy != null)
         {
-            if (playerCheck != null) { actionTracker.RecieveDamage(otherEnergy, damageDone, true); }
+            if (playerCheck != null && other != null) { actionTracker.RecieveDamage(otherEnergy, damageDone, true); }
             else
             {
                 actionTracker.RecieveDamage(otherEnergy, damageDone, false);
-                Debug.Log("Collided with Enemy");
             }
         }
         Destroy(gameObject);

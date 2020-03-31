@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : Controller
 {
     public bool canSprint = false;
+    public Ray playerFront;
     public Energy energy;
 
     //[SerializeField] private Pawn playerPawn;
@@ -22,6 +23,7 @@ public class PlayerController : Controller
 
     public override void Update()
     {
+        playerFront = new Ray(transform.position, transform.forward);
         HandleMovement();
         HandleAttacking();
     }

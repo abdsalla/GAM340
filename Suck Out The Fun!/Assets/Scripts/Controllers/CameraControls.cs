@@ -14,20 +14,18 @@ public class CameraControls : MonoBehaviour
     [SerializeField] private GameObject target;  // Player's position
     [SerializeField] private Camera theCamera;  // Player's camera
 
-    void OnEnable()
-    {
-        instance = GameManager.Instance;
-    }
 
     void Start()
     {
+        instance = GameManager.Instance;
         theCamera = GetComponent<Camera>();
-        target = GameObject.FindWithTag("Player");
+        target = instance.currentPlayer;
     }
 
     void Update()
     {
-        RotateToMousePosition(); // Rotate the PLayer to look at the direction the mouse is at
+        if (target == null) target = instance.currentPlayer;
+        RotateToMousePosition(); // Rotate the Player to look at the direction the mouse is at
         FollowTarget(); // Follow the camera's target using MoveTowards
     }
 

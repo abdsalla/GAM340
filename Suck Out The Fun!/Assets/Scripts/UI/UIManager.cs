@@ -23,7 +23,6 @@ public class UIManager : MonoBehaviour
         else if (!isPlayer)
         {
             enToAffect.CurrentHealth -= damageValue;
-            Debug.Log("Enemy Health: " + enToAffect.CurrentHealth);
         }
     }
 
