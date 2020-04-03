@@ -9,7 +9,6 @@ public class AIController : Controller
 {
     public Transform target; // player
 
-    private Coroutine traverseOffMeshLink;
     private GameManager instance;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] float closeEnoughSquared = .04f;
@@ -28,7 +27,7 @@ public class AIController : Controller
 
     void Navigation()
     {
-        target = instance.currentPlayer.transform;
+        //target = instance.currentPlayer.transform;
         pawn.agent.SetDestination(target.position);  // Set the AI's destination as the player
         Vector3 desiredVelocity = agent.desiredVelocity;
         Vector3 desiredMovement = Vector3.MoveTowards(desiredVelocity, agent.desiredVelocity, agent.acceleration * Time.deltaTime);

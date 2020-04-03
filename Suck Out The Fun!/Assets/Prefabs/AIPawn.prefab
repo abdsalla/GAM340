@@ -344,6 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d436b8ec945f4479d58c9c76749588, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
   OnUse:
     m_PersistentCalls:
       m_Calls: []
@@ -467,8 +468,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 992661900789709949}
-  target: {fileID: 2755681923885320586, guid: e883af4417290a74dbb562d7af251799, type: 3}
+  target: {fileID: 4305008123190960366, guid: 87ef8963cae43f347b17b5188f4fbff4, type: 3}
   agent: {fileID: 6672413253992236755}
+  closeEnoughSquared: 0.04
 --- !u!1 &1385127241521800864
 GameObject:
   m_ObjectHideFlags: 0

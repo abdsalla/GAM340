@@ -20,13 +20,14 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     public UIManager UI;
+    public SlotManager inventory;
 
     [Header("Spawn Locations")]
     public Vector3 playerSpawnPoint;
     public Transform[] enemySpawnPoints;
 
     [Header("Resources")]
-    public Weapon[] weapons;
+    public Rifle[] weapons;
 
 
     void Awake()
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
             currentPlayer = Instantiate(player);
         }
         currentPlayer.transform.position = playerSpawnPoint;
+        inventory = currentPlayer.GetComponentInChildren<SlotManager>();
         AssignWeapon(currentPlayer);
     }
 
@@ -89,7 +91,14 @@ public class GameManager : MonoBehaviour
     void AssignWeapon(GameObject toAssign) // Assign weapon to the given GameObject's pawn
     {
         Pawn pawn = toAssign.GetComponent<Pawn>();
-        pawn.EquipWeapon(weapons[Random.Range(0, weapons.Length)]);
+
+        if (pawn.agent == null)
+        {
+            inventory.activeSlot = new Slot();
+            inventory.activeSlot = inventory.slots[0];
+            pawn.EquipWeapon(weapons[0]);         
+        }
+        else if (pawn.agent != null) { pawn.EquipWeapon(weapons[Random.Range(0, weapons.Length)]); }
     }
     
     public IEnumerator PlayerRespawn()

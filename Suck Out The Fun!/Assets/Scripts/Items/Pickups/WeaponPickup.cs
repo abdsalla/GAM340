@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class WeaponPickup : Pickup
 {
-    public Weapon weaponToGet; 
+    public Rifle weaponToGet; 
 
     public override void OnPickup(GameObject target)
     {
-        if (receiverPawn != null && receiverPawn.agent == null)
+        if (receiverPawn != null && receiverPawn.agent == null) // if is PLayer
         {
-            receiverPawn.EquipWeapon(weaponToGet);
+            SlotManager inventory = target.GetComponentInChildren<SlotManager>(); // grab inventory
+
+            receiverPawn.weapon.ammo += 50;
             Destroy(gameObject);
+            //receiverPawn.EquipWeapon(weaponToGet);   
         }
     }
 }

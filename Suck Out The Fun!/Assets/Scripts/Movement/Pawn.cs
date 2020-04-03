@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class Pawn : MonoBehaviour
 {
+    public SlotManager inventory;
     public UnityEvent OnUse;
     public UnityEvent OnExit;
     public Weapon weapon;
@@ -21,11 +22,6 @@ public class Pawn : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        
-    }
-
     public void Move(Vector3 direction) // Receives controller input
     {
         direction = transform.InverseTransformDirection(direction); // World to local for animator
@@ -38,28 +34,35 @@ public class Pawn : MonoBehaviour
 
     public void EquipWeapon(Weapon newWeapon)
     {
-        if (weapon != null) { UnequipWeapon(); } // if we already have a weapon equipped the remove it for the new one
-
+        if (weapon != null) { SwitchWeapon(newWeapon); }
         // Create the weapon object and set it's transform to the Player's weaponSpawnPosition 
         GameObject weaponObj = Instantiate(newWeapon.gameObject, weaponSpawnPosition.position, weaponSpawnPosition.rotation) as GameObject;
         weaponObj.transform.parent = weaponSpawnPosition;
         weapon = weaponObj.GetComponent<Weapon>();
 
-        if (newWeapon.gameObject.tag == "AutoW") { weapon.gameObject.transform.Rotate(0, 90.0f, 0, Space.Self); }
+        if (newWeapon.name == "ak_47") { weapon.gameObject.transform.Rotate(0, 90.0f, 0, Space.Self); }
             
         OnUse.AddListener(weapon.OnUse);
         OnExit.AddListener(weapon.OnExit);    
     }
 
-    public void UnequipWeapon()
+    public void SwitchWeapon(Weapon toSwitch)
     {
         if (weapon != null)
         {
+            OnUse.RemoveListener(weapon.OnUse);
+            OnExit.RemoveListener(weapon.OnExit);
             Destroy(weapon.gameObject);
             weapon = null;
 
-            OnUse.RemoveListener(weapon.OnUse);
-            OnExit.RemoveListener(weapon.OnExit);
+            GameObject weaponObj = Instantiate(toSwitch.gameObject, weaponSpawnPosition.position, weaponSpawnPosition.rotation) as GameObject;
+            weaponObj.transform.parent = weaponSpawnPosition;
+            weapon = weaponObj.GetComponent<Weapon>();
+
+            if (toSwitch.name == "ak_47") { weapon.gameObject.transform.Rotate(0, 90.0f, 0, Space.Self); }
+
+            OnUse.AddListener(weapon.OnUse);
+            OnExit.AddListener(weapon.OnExit);
         }
     }
 

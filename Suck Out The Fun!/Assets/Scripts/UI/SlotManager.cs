@@ -4,15 +4,48 @@ using UnityEngine;
 
 public class SlotManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private const int MAX_SLOTS = 2;
+    
+    public Slot activeSlot;
+    public Slot[] slots;
 
-    // Update is called once per frame
+    [SerializeField] private Pawn pawn;
+
+
+    void Start() { pawn = GetComponentInParent<Pawn>(); }
+
     void Update()
     {
-        
+        ToggleActiveWeapon();
+    }
+
+
+    void ToggleActiveWeapon()
+    {
+        Rifle tempWeaponHold;
+
+        if (Input.GetKeyDown(KeyCode.Q) && pawn.weapon != null || Input.GetKeyDown(KeyCode.E) && pawn.weapon != null)
+        {
+            if (activeSlot.activeWeapon == slots[0].activeWeapon)
+            {
+                tempWeaponHold = slots[0].activeWeapon;
+                activeSlot.activeWeapon = slots[1].activeWeapon;
+                slots[1].activeWeapon = tempWeaponHold;
+                pawn.SwitchWeapon(activeSlot.activeWeapon);
+                activeSlot.GetComponent<Slot>().enabled = !activeSlot.GetComponent<Slot>().enabled;
+                StartCoroutine(activeSlot.DisplayItem());
+                StopCoroutine(activeSlot.DisplayItem());
+            }
+            else if (activeSlot.activeWeapon == slots[1].activeWeapon)
+            {
+                tempWeaponHold = slots[1].activeWeapon;
+                activeSlot.activeWeapon = slots[0].activeWeapon;
+                slots[0].activeWeapon = tempWeaponHold;
+                pawn.SwitchWeapon(activeSlot.activeWeapon);
+                activeSlot.GetComponent<Slot>().enabled = !activeSlot.GetComponent<Slot>().enabled;
+                StartCoroutine(activeSlot.DisplayItem());
+                StopCoroutine(activeSlot.DisplayItem());
+            }
+        }
     }
 }

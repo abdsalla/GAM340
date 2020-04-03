@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Rifle : Weapon
 {   
@@ -16,6 +17,7 @@ public class Rifle : Weapon
     void Start()
     {
         shotCooldown = 0;
+        ammoCount = ammo;
     }
 
     void Update()

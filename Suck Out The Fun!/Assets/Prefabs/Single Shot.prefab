@@ -635,6 +635,7 @@ MonoBehaviour:
   maxAmount: 1
   RightHandPoint: {fileID: 8323811829164634909}
   LeftHandPoint: {fileID: 8593302934243580691}
+  weaponSprite: {fileID: 21300000, guid: 5c21243859bc54841a35466452a976d2, type: 3}
   shotRange: 4
   damageDone: 35
   ammoCount: 50

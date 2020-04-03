@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Weapon : Item
 {
+    public float ammo = 100;
     public Transform RightHandPoint;
     public Transform LeftHandPoint;
+    public Sprite weaponSprite;
     public float shotRange;
     [SerializeField] protected float damageDone;
 
