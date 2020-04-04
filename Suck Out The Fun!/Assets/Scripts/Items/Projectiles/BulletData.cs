@@ -21,7 +21,12 @@ public class BulletData : MonoBehaviour
 
     void Start() { Destroy(gameObject, lifespan); }
 
-    void Update() { transform.position += transform.forward * travelSpeed * Time.deltaTime; }
+    void Update()
+    {
+        if (GameManager.Instance.isPaused) return;
+
+        transform.position += transform.forward * travelSpeed * Time.deltaTime;
+    }
 
     void OnTriggerEnter(Collider other)
     {

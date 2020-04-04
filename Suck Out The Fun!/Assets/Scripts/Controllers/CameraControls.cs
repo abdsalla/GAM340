@@ -24,6 +24,8 @@ public class CameraControls : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.isPaused) return;
+
         if (target == null) target = instance.currentPlayer;
         RotateToMousePosition(); // Rotate the Player to look at the direction the mouse is at
         FollowTarget(); // Follow the camera's target using MoveTowards

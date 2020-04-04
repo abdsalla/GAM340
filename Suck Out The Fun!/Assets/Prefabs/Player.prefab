@@ -386,6 +386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbeb15d9c3989e649ac5747a330c61ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDrops: []
+  cdfArray: []
+  itemDropOffset: {x: 0, y: 0, z: 0}
   regenRate: 0.0009
   maxHealth: 100
   maxStamina: 100

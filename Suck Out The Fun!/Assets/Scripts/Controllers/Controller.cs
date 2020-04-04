@@ -13,6 +13,6 @@ public class Controller : MonoBehaviour
 
     public virtual void Update()
     {
-        
+        if (GameManager.Instance.isPaused) return;
     }
 }

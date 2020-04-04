@@ -10,6 +10,10 @@ public class Energy : MonoBehaviour
 {
     private GameManager instance;
 
+    public WeightedDrops[] itemDrops;
+    [SerializeField] private float[] cdfArray;
+    [SerializeField] private Vector3 itemDropOffset;
+
     [Header("Energy Stats")]
     public float regenRate;
 
@@ -76,6 +80,31 @@ public class Energy : MonoBehaviour
         else if (healthPercent > 70f) { health.color = Color.green; }
     }
 
+    Object DropChance()
+    {
+        List<int> CDFArray = new List<int>();
+
+        int density = 0;
+
+        for (int i = 0; i < itemDrops.Length; i++)
+        {
+            density += itemDrops[i].chance;
+            CDFArray.Add(density);
+        }
+
+        int randonNumber = Random.Range(0, density);
+
+        int selection = System.Array.BinarySearch(CDFArray.ToArray(), randonNumber);
+        if (selection < 0) selection = ~selection;
+        Debug.Log("selection: " + selection);
+        return itemDrops[selection].value; 
+    }
+
+    void DropItem()
+    {       
+        Object itemDrop = Instantiate(DropChance(), transform.position + itemDropOffset, Quaternion.identity);
+    }
+
     public void DestroySelf() // Handles death and increments/decrements of player counters
     {
         Pawn unitCheck = GetComponent<Pawn>();
@@ -87,6 +116,7 @@ public class Energy : MonoBehaviour
                 instance.lives -= 1;
                 instance.score -= 5;
                 Destroy(gameObject);
+                if (instance.lives <= 0) instance.Loss();
                 StartCoroutine(instance.PlayerRespawn());
                 StopCoroutine(instance.PlayerRespawn());
             }
@@ -94,6 +124,9 @@ public class Energy : MonoBehaviour
             {
                 instance.score += 10;
                 Destroy(gameObject, 2.0f);
+                DropItem();
+                if (instance.score >= 150) { instance.Victory(); }
+
                 for (int i = instance.activeEnemies; i >= instance.allowedEnemies; i--)
                 {
                     Destroy(gameObject, 2.0f);

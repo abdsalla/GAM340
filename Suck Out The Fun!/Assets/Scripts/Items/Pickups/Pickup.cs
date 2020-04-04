@@ -11,7 +11,11 @@ public abstract class Pickup : MonoBehaviour
 
     public virtual void Start() { }
 
-    public virtual void Update() { Spin(); }
+    public virtual void Update()
+    {
+        if (GameManager.Instance.isPaused) return;
+        Spin();
+    }
 
     public abstract void OnPickup(GameObject target);
 

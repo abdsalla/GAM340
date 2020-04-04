@@ -13,7 +13,7 @@ public class Weapon : Item
 
     public void Start() { type = ItemType.Weapon; }
 
-    public void Update() {    }
+    public void Update() { if (GameManager.Instance.isPaused) return; }
 
     public override void OnUse() { }
 

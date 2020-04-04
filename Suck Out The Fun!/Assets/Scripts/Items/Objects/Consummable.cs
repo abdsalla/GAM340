@@ -13,6 +13,7 @@ public class Consummable : Item
     void Awake()
     {
         instance = GameManager.Instance;
+        actionTracker = instance.UI;
     }
 
     void Start() { type = ItemType.Consummable; }

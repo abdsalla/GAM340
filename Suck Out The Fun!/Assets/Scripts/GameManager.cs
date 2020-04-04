@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,13 +10,13 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;                                        // God Object
 
     [Header("Player")]
-    public GameObject player;
-    public GameObject currentPlayer;
-    public float score;
-    public int lives = 3;
+    public GameObject player; // prefab
+    public GameObject currentPlayer; // active player clone of prefab
+    public float score; // need 150 to win
+    public int lives = 3; // player starts with 3 lives
 
     [Header("AI")]
-    public GameObject aI;
+    public GameObject aI; // enemy prefab
     public int activeEnemies = 0;
     public int allowedEnemies = 4;
 
@@ -25,6 +27,11 @@ public class GameManager : MonoBehaviour
     [Header("Spawn Locations")]
     public Vector3 playerSpawnPoint;
     public Transform[] enemySpawnPoints;
+
+    [Header("Scene Progression")]
+    public SceneLoader sceneLoader; // scene handler
+    public Scene activeScene => SceneManager.GetActiveScene(); // current scene
+    public bool isPaused; // used to pause things that aren't driven by Time. anything
 
     [Header("Resources")]
     public Rifle[] weapons;
@@ -40,9 +47,15 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
-        }
-        PlayerSpawn();
-        EnemySpawn();
+        } 
+    }
+
+    void OnEnable() { SceneManager.sceneLoaded += OnSceneLoaded; }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 1) { Pause(); } 
+        else if (Input.GetKeyDown(KeyCode.P) && Time.timeScale == 0) { UnPause(); }
     }
 
     public void PlayerSpawn() // Spawns Player at the given spawn point if there is no active Player in the scene
@@ -101,7 +114,7 @@ public class GameManager : MonoBehaviour
         else if (pawn.agent != null) { pawn.EquipWeapon(weapons[Random.Range(0, weapons.Length)]); }
     }
     
-    public IEnumerator PlayerRespawn()
+    public IEnumerator PlayerRespawn() // Spawn used when Player is killed
     {
         float countDown = 5f;
         CapsuleCollider playerHitBox = currentPlayer.GetComponent<CapsuleCollider>();
@@ -109,9 +122,8 @@ public class GameManager : MonoBehaviour
         currentPlayer = newPlayer;
         currentPlayer.transform.position = playerSpawnPoint;
         AssignWeapon(currentPlayer);
-        Debug.Log("Player has respawned"); 
 
-        while (countDown > 0)
+        while (countDown > 0) // tiny invincibility when Pla 
         {
             yield return new WaitForSeconds(1.0f);
             countDown--;
@@ -119,4 +131,44 @@ public class GameManager : MonoBehaviour
         }
         playerHitBox.isTrigger = false;
     }
+
+    public void Pause() // Set time functions to a halt by multplying them by zero and using isPaused
+    {
+        isPaused = true;
+        Time.timeScale = 0;
+        instance.UI.resume.gameObject.SetActive(true);
+        instance.UI.mainMenu.gameObject.SetActive(true);
+    }
+
+    public void UnPause() // Undo Pause
+    {
+        isPaused = false;
+        Time.timeScale = 1.0f;
+        instance.UI.resume.gameObject.SetActive(false);
+        instance.UI.mainMenu.gameObject.SetActive(false);
+    }
+
+    public void Victory() { sceneLoader.RunWinScreen(); }
+
+    public void Loss() { sceneLoader.RunMainMenu(); }
+    
+    void LoadReferences()
+    {
+        GameObject UImanager = GameObject.FindWithTag("UIManager");
+        GameObject spawnParent = GameObject.FindWithTag("spawnList");
+        enemySpawnPoints = spawnParent.GetComponentsInChildren<Transform>();
+        UI = UImanager.GetComponent<UIManager>();
+        UI.resume.gameObject.SetActive(false);
+        UI.mainMenu.gameObject.SetActive(false);
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode Mode)
+    {
+        if (scene.buildIndex == 1)
+        {
+            LoadReferences();
+            PlayerSpawn();
+            EnemySpawn();
+        }
+    }   
 }

@@ -16,6 +16,8 @@ public class SlotManager : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.isPaused) return;
+
         ToggleActiveWeapon();
     }
 

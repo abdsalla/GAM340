@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
 {
     private GameManager instance;
 
+    public Button resume;
+    public Button mainMenu;
     public float actionCost = .02f;
 
 

@@ -23,6 +23,8 @@ public class PlayerController : Controller
 
     public override void Update()
     {
+        if (GameManager.Instance.isPaused) return;
+
         playerFront = new Ray(transform.position, transform.forward);
         HandleMovement();
         HandleAttacking();

@@ -373,6 +373,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbeb15d9c3989e649ac5747a330c61ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDrops:
+  - value: {fileID: 8429361630884947689, guid: c1786e7dd9d6fae4880ff3b8757400a3, type: 3}
+    chance: 10
+  - value: {fileID: 84046949474654316, guid: 4453fb425b8470940ba85bbeffe9bf94, type: 3}
+    chance: 10
+  - value: {fileID: 3752419092240605986, guid: c6e6ef1e06557c74eac31561b8c605ca, type: 3}
+    chance: 20
+  - value: {fileID: 4305008123190960353, guid: 87ef8963cae43f347b17b5188f4fbff4, type: 3}
+    chance: 50
+  cdfArray:
+  - 0.1
+  - 0.2
+  - 0.5
+  - 1
+  itemDropOffset: {x: 0, y: 0, z: 0}
   regenRate: 0.0009
   maxHealth: 100
   maxStamina: 100
@@ -468,7 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 992661900789709949}
-  target: {fileID: 4305008123190960366, guid: 87ef8963cae43f347b17b5188f4fbff4, type: 3}
+  target: {fileID: 2755681923885320586, guid: e883af4417290a74dbb562d7af251799, type: 3}
   agent: {fileID: 6672413253992236755}
   closeEnoughSquared: 0.04
 --- !u!1 &1385127241521800864

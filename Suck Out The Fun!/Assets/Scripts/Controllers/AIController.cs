@@ -21,13 +21,15 @@ public class AIController : Controller
 
     public override void Update() 
     {
+        if (GameManager.Instance.isPaused) return;
+
         Navigation();
         FireAtPlayer(); 
     }
 
     void Navigation()
     {
-        //target = instance.currentPlayer.transform;
+        target = instance.currentPlayer.transform;
         pawn.agent.SetDestination(target.position);  // Set the AI's destination as the player
         Vector3 desiredVelocity = agent.desiredVelocity;
         Vector3 desiredMovement = Vector3.MoveTowards(desiredVelocity, agent.desiredVelocity, agent.acceleration * Time.deltaTime);

@@ -22,8 +22,11 @@ public class Rifle : Weapon
 
     void Update()
     {
+        if (GameManager.Instance.isPaused) return;
+
         if (shotCooldown < fireRate) shotCooldown += Time.deltaTime;
 
+        ammoCount = ammo;
         ShootBullet(); 
     }
 
@@ -34,6 +37,7 @@ public class Rifle : Weapon
             GameObject bullet = Instantiate(prefabBullet, firePoint.position, firePoint.rotation) as GameObject;
             BulletData bulletData = bullet.GetComponent<BulletData>();
             ammoCount--;
+            ammo = ammoCount;
             if (bulletData != null)
             {
                 bulletData.damageDone = damageDone;
