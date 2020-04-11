@@ -6,6 +6,9 @@ public class BulletData : MonoBehaviour
 {
     public float damageDone;
     public float travelSpeed;
+    public AudioClip shot;
+    public AudioSource audio;
+
     [SerializeField] private float lifespan = 1.5f;
 
     private UIManager actionTracker;
@@ -17,6 +20,7 @@ public class BulletData : MonoBehaviour
     {
         instance = GameManager.Instance;
         actionTracker = instance.UI;
+        audio.PlayOneShot(shot);
     }
 
     void Start() { Destroy(gameObject, lifespan); }
@@ -35,10 +39,7 @@ public class BulletData : MonoBehaviour
         if (otherEnergy != null)
         {
             if (playerCheck != null && other != null) { actionTracker.RecieveDamage(otherEnergy, damageDone, true); }
-            else
-            {
-                actionTracker.RecieveDamage(otherEnergy, damageDone, false);
-            }
+            else actionTracker.RecieveDamage(otherEnergy, damageDone, false);
         }
         Destroy(gameObject);
     }

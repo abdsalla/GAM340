@@ -11,6 +11,7 @@ public class Energy : MonoBehaviour
     private GameManager instance;
 
     public WeightedDrops[] itemDrops;
+    [SerializeField] private AudioClip grunt;
     [SerializeField] private float[] cdfArray;
     [SerializeField] private Vector3 itemDropOffset;
 
@@ -105,6 +106,21 @@ public class Energy : MonoBehaviour
         Object itemDrop = Instantiate(DropChance(), transform.position + itemDropOffset, Quaternion.identity);
     }
 
+    IEnumerator GruntEnemy()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.PlayOneShot(grunt);
+        yield return new WaitForSeconds(grunt.length);
+        Destroy(gameObject, 2.0f);
+    }
+
+    IEnumerator Grunt()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.PlayOneShot(grunt);
+        yield return new WaitForSeconds(grunt.length);
+    }
+
     public void DestroySelf() // Handles death and increments/decrements of player counters
     {
         Pawn unitCheck = GetComponent<Pawn>();
@@ -115,6 +131,7 @@ public class Energy : MonoBehaviour
             {
                 instance.lives -= 1;
                 instance.score -= 5;
+                StartCoroutine(Grunt());
                 Destroy(gameObject);
                 if (instance.lives <= 0) instance.Loss();
                 StartCoroutine(instance.PlayerRespawn());
@@ -123,7 +140,7 @@ public class Energy : MonoBehaviour
             else if (unitCheck.agent != null)
             {
                 instance.score += 10;
-                Destroy(gameObject, 2.0f);
+                StartCoroutine(GruntEnemy());
                 DropItem();
                 if (instance.score >= 150) { instance.Victory(); }
 
