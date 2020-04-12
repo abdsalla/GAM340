@@ -139,16 +139,14 @@ public class GameManager : MonoBehaviour
     {
         isPaused = true;
         Time.timeScale = 0;
-        instance.UI.resume.gameObject.SetActive(true);
-        instance.UI.mainMenu.gameObject.SetActive(true);
+        UI.settings.SetActive(true);
     }
 
     public void UnPause() // Undo Pause
     {
         isPaused = false;
         Time.timeScale = 1.0f;
-        instance.UI.resume.gameObject.SetActive(false);
-        instance.UI.mainMenu.gameObject.SetActive(false);
+        UI.settings.SetActive(false);
     }
 
     public void Victory() { sceneLoader.RunWinScreen(); }
@@ -161,8 +159,7 @@ public class GameManager : MonoBehaviour
         GameObject spawnParent = GameObject.FindWithTag("spawnList");
         enemySpawnPoints = spawnParent.GetComponentsInChildren<Transform>();
         UI = UImanager.GetComponent<UIManager>();
-        UI.resume.gameObject.SetActive(false);
-        UI.mainMenu.gameObject.SetActive(false);
+        UI.settings.SetActive(false);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode Mode)

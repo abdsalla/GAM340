@@ -633,6 +633,7 @@ MonoBehaviour:
   body: {fileID: 5334418202839752475}
   amount: 0
   maxAmount: 1
+  ammo: 100
   RightHandPoint: {fileID: 8323811829164634909}
   LeftHandPoint: {fileID: 8593302934243580691}
   weaponSprite: {fileID: 21300000, guid: 5c21243859bc54841a35466452a976d2, type: 3}
@@ -640,6 +641,8 @@ MonoBehaviour:
   damageDone: 35
   ammoCount: 50
   prefabBullet: {fileID: 2649090730048668399, guid: 4a983a2af8f4d144a982a421b11b86e2,
+    type: 3}
+  prefabFlash: {fileID: 5294385709146296921, guid: d58da1af22d13ff48b93d95085161e1f,
     type: 3}
   firePoint: {fileID: 1802765164495705325}
   isShooting: 0

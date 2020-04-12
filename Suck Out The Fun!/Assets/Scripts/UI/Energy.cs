@@ -6,11 +6,21 @@ using System.Collections.Generic;
 
 public class UnityFloatEvent : UnityEvent<float> { }
 
+#if UNITY_EDITOR
+public class WeightedDrops
+{
+    [SerializeField, Tooltip("The item drop selected by this choice")]
+    public Object value;
+    [SerializeField, Tooltip("The chance to select this value")]
+    public int chance = 1;
+}
+#endif
 public class Energy : MonoBehaviour
 {
     private GameManager instance;
-
+#if UNITY_EDITOR
     public WeightedDrops[] itemDrops;
+#endif
     [SerializeField] private AudioClip grunt;
     [SerializeField] private float[] cdfArray;
     [SerializeField] private Vector3 itemDropOffset;
@@ -80,7 +90,7 @@ public class Energy : MonoBehaviour
         else if (healthPercent <= 70f && healthPercent > 30f) { health.color = new Color(255, 165, 0); }
         else if (healthPercent > 70f) { health.color = Color.green; }
     }
-
+#if UNITY_EDITOR
     Object DropChance()
     {
         List<int> CDFArray = new List<int>();
@@ -105,6 +115,7 @@ public class Energy : MonoBehaviour
     {       
         Object itemDrop = Instantiate(DropChance(), transform.position + itemDropOffset, Quaternion.identity);
     }
+#endif
 
     IEnumerator GruntEnemy()
     {
@@ -141,7 +152,9 @@ public class Energy : MonoBehaviour
             {
                 instance.score += 10;
                 StartCoroutine(GruntEnemy());
+#if UNITY_EDITOR
                 DropItem();
+#endif
                 if (instance.score >= 150) { instance.Victory(); }
 
                 for (int i = instance.activeEnemies; i >= instance.allowedEnemies; i--)

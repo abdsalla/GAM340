@@ -10,6 +10,7 @@ public class SceneLoader : MonoBehaviour
     public const int MAIN_MENU_INDEX = 0;
     public const int WORLD_INDEX = 1;
     public const int WIN_SCREEN_INDEX = 2;
+    public const int OPTIONS_INDEX = 3;
 
     private IEnumerator result;
     private GameManager instance;
@@ -53,6 +54,8 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(WIN_SCREEN_INDEX);
         mixer.StopMusic();
     }
+
+    public void RunOptions() { SceneManager.LoadSceneAsync(OPTIONS_INDEX); }
 
     public void Quitter() { StartCoroutine(Quit()); }
 

@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &88002387
@@ -278,11 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5712aa5074b473344a911805e4989722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startButton: {fileID: 398060776}
-  quitButton: {fileID: 88002387}
   click: {fileID: 8300000, guid: a342be189079b0d4b9753dde37b68b75, type: 3}
   sceneLoader: {fileID: 2136868116}
-  scene: 3
+  scene: 4
 --- !u!82 &88002391
 AudioSource:
   m_ObjectHideFlags: 0
@@ -292,7 +290,7 @@ AudioSource:
   m_GameObject: {fileID: 88002385}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 1733191107545376054, guid: 58e2e7abb2875a9459809b4cf673b5d2,
+  OutputAudioMixerGroup: {fileID: -112939648563340233, guid: 58e2e7abb2875a9459809b4cf673b5d2,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: a342be189079b0d4b9753dde37b68b75, type: 3}
   m_PlayOnAwake: 0
@@ -418,7 +416,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 70}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &398060776
@@ -538,8 +536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5712aa5074b473344a911805e4989722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startButton: {fileID: 398060776}
-  quitButton: {fileID: 88002387}
   click: {fileID: 8300000, guid: a342be189079b0d4b9753dde37b68b75, type: 3}
   sceneLoader: {fileID: 2136868116}
   scene: 1
@@ -552,7 +548,7 @@ AudioSource:
   m_GameObject: {fileID: 398060774}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 1733191107545376054, guid: 58e2e7abb2875a9459809b4cf673b5d2,
+  OutputAudioMixerGroup: {fileID: -112939648563340233, guid: 58e2e7abb2875a9459809b4cf673b5d2,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: a342be189079b0d4b9753dde37b68b75, type: 3}
   m_PlayOnAwake: 0
@@ -695,7 +691,7 @@ AudioSource:
   m_GameObject: {fileID: 413823768}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 6004761759779284273, guid: 58e2e7abb2875a9459809b4cf673b5d2,
+  OutputAudioMixerGroup: {fileID: -8995656084245511319, guid: 58e2e7abb2875a9459809b4cf673b5d2,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: a0d6ea2cb2e782948b0535f4ec057b3f, type: 3}
   m_PlayOnAwake: 0

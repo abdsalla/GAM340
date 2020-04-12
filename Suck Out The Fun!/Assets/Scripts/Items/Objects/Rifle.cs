@@ -8,6 +8,7 @@ public class Rifle : Weapon
     public float ammoCount;
 
     [SerializeField] private GameObject prefabBullet;
+    [SerializeField] private GameObject prefabFlash;
     [SerializeField] private Transform firePoint;
     [SerializeField] private bool isShooting = false;
     [SerializeField] private float fireRate = .2f;
@@ -34,6 +35,8 @@ public class Rifle : Weapon
     {
         if (isShooting && shotCooldown >= fireRate && ammoCount > 0)
         {
+            GameObject mFlash = Instantiate(prefabFlash, firePoint.position, firePoint.rotation) as GameObject;
+            Destroy(mFlash, 2.0f);
             GameObject bullet = Instantiate(prefabBullet, firePoint.position, firePoint.rotation) as GameObject;
             BulletData bulletData = bullet.GetComponent<BulletData>();
             ammoCount--;

@@ -8,12 +8,19 @@ public class UIManager : MonoBehaviour
 {
     private GameManager instance;
 
-    public Button resume;
-    public Button mainMenu;
+    public Text fpsCounter;
+    public GameObject settings;
     public float actionCost = .02f;
 
 
     void Awake() { instance = GameManager.Instance; }
+
+    void Update()
+    {
+        int fps;
+        fps = (int)(1f / Time.unscaledDeltaTime);
+        fpsCounter.text = "FPS: " + fps;
+    }
 
     public void RecieveDamage (Energy enToAffect, float damageValue, bool isPlayer) // Make Health visual match the healthbar value
     {

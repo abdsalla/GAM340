@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-
-    [System.Serializable]
+[System.Serializable]
     public class WeightedDrops
     {
         [SerializeField, Tooltip("The item drop selected by this choice")]

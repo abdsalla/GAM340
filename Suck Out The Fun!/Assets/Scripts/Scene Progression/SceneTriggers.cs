@@ -6,48 +6,19 @@ using UnityEngine;
 
 public class SceneTriggers : MonoBehaviour
 {
-    private GameManager instance;
-
-    public Button startButton;
-    public Button quitButton;
     public AudioClip click;
     public SceneLoader sceneLoader;
-    public enum Scenes {MainMenu, World, WinScreen, Exit};
+    public enum Scenes {MainMenu, World, WinScreen, Options, Exit};
     public Scenes scene = Scenes.MainMenu;
 
-    private UnityAction sceneSwitcher;
-    private UnityAction exiter;
+    private GameManager instance;
 
-
-    void Start()
-    {
-        instance = GameManager.Instance;
-        sceneSwitcher += SceneSwitch;
-        exiter += sceneLoader.Quitter;
-
-        if (scene == Scenes.Exit && instance.activeScene.name == "MainMenu")
-        {
-            Button qBtn = quitButton.GetComponent<Button>();
-            qBtn.onClick.AddListener(exiter);
-        }
-        else if (scene == Scenes.World && instance.activeScene.name == "MainMenu")
-        {
-            Button sBtn = startButton.GetComponent<Button>();
-            sBtn.onClick.AddListener(sceneSwitcher);
-        }
-    }
 
     void OnEnable()
     {
-        exiter = null;
-        SceneTriggers quitTrigger = quitButton.gameObject.GetComponent<SceneTriggers>();
-        quitTrigger.sceneLoader = SceneLoader.sceneManager;
-        exiter += sceneLoader.Quitter;
-        Button qBtn = quitButton.GetComponent<Button>();
-        qBtn.onClick.AddListener(exiter);
+        instance = GameManager.Instance;
+        if (sceneLoader == null) sceneLoader = instance.sceneLoader;
     }
-
-    void OnDisable() { quitButton.onClick.RemoveAllListeners(); }
 
     public void SceneSwitch()
     {
@@ -61,6 +32,12 @@ public class SceneTriggers : MonoBehaviour
                 break;
             case Scenes.WinScreen:         
                 sceneLoader.RunWinScreen();
+                break;
+            case Scenes.Options:
+                sceneLoader.RunOptions();
+                break;
+            case Scenes.Exit:
+                sceneLoader.Quitter();
                 break;
         }
     }
